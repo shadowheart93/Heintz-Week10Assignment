@@ -1,27 +1,28 @@
 import os
 
-# Prompt user for directory
-directory = input('Enter Directory to save file: ')
+def main():
 
-# default directory if blank
-if directory == "":
-    directory =  os.path.dirname(os.path.realpath(__file__))
+    directory = input("Enter the directory that you want to save the file : ")
+    filename = input("Enter the filename : ")
+    name = input("Enter your name : ")
+    address = input("Enter your address : ")
+    phone_number = input("Enter your phone number : ")
 
-# prompt user for filename
-fileName = input('Enter filename: ')
+#checking if the directory exists
 
-# prompt for user info
-name = input('Enter name: ')
-address = input('Enter address: ')
-phone = input('Enter phone number: ')
-
-# create file
-with open("{}/{}.csv".format(directory, fileName), 'w') as file:
-    file.write(",".join([name, address, phone]) + "\n")
-
-# display file
-with open("{}/{}.csv".format(directory, fileName), 'r') as file:
-    print("{}/{}.csv contents".format(directory, fileName))
-
-    for line in file:
-        print(line)
+    if os.path.isdir(directory):
+    #createing and opening the file to write
+        writeFile = open(os.path.join(directory,filename),'w')
+    #writing the data by comma seperated
+        writeFile.write(name+','+address+','+phone_number+'\n')
+    #close the file after writing is done
+        writeFile.close()
+        print("File contents:")
+    #reading the file for proof of storing
+        readFile = open(os.path.join(directory,filename),'r')
+        for line in readFile:
+            print(line)
+        readFile.close()
+    else:
+        print("Sorry that directory is not exists...")
+main()
